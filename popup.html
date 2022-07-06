@@ -3,18 +3,19 @@
   <head>
     <meta charset="UTF-8">
     <title>Caller</title>
-        <link rel="stylesheet" href="bootstrap.css">
-        <link rel="stylesheet" href="bs.css">
-        <script src="jquery-3.3.1.slim.min.js"></script>
-        <script src="popper.min.js"></script>
-        <script src="bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="datatables.min.css">
+        <script src="jquery-3.5.1.slim.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="datatables.min.js"></script>
       </body>
     </html>
     <style>
     body{
-      width: 300px;
+      min-width: 400px;
     }
     iframe {
+      width: 100%;
       height: 30px;
       overflow:hidden;
       text-align: center;
@@ -29,10 +30,17 @@
     </style>
   </head>
   <body>
+    <div class="d-flex">
+    <input type="text" class="form-control" name="CPNum" id="CPNum" placeholder="Phone Number to dial" value="" >
+    <button id="dialnew" type="button" class="btn btn-success">Dial</button>
+  </div>
   	<ul class="nav nav-tabs" id="myTab" role="tablist">
 	  <li class="nav-item">
 	    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Dialer</a>
 	  </li>
+    <li class="nav-item">
+      <a class="nav-link" id="History-tab" data-toggle="tab" href="#History" role="tab" aria-controls="History" aria-selected="false">History</a>
+    </li>
 	  <li class="nav-item">
 	    <a class="nav-link" id="Settings-tab" data-toggle="tab" href="#Settings" role="tab" aria-controls="Settings" aria-selected="false">Settings</a>
 	  </li>
@@ -44,10 +52,24 @@
 	  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 	    <div id="number"></div>
 	    <iframe frameborder="0" scrolling="no"></iframe>
-	    <script type="text/javascript" src="popup.js"></script>
+	    <script type="text/javascript" src="popup.js?2"></script>
       <button id="endcall" type="button" class="btn btn-danger">End Call</button>
       <button id="holdcall" type="button" class="btn btn-warning">Hold Call</button>
 	  </div>
+    <div class="tab-pane fade" id="History" role="tabpanel" aria-labelledby="History-tab">
+      <table class="table" id="HisT">
+        <thead>
+          <tr>
+            <th>Website</th>
+            <th>Phone #</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
 	  <div class="tab-pane fade" id="Settings" role="tabpanel" aria-labelledby="Settings-tab">
 	  	<div class="input-group">
   		  <span class="input-group-addon" id="basic-addon1">IP Address</span>
@@ -67,10 +89,10 @@
       </div>
 		  <div id="status"></div>
 		  <button id="save" type="button" class="btn btn-primary">Save IP Address</button>
-		  <script src="options.js"></script>
+		  
 	  </div>
 	</div>	
   </body>
-
+<script src="options.js?2"></script>
 </html>
-
+<script src="setup.js"></script>
