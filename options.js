@@ -112,3 +112,10 @@ document.getElementById('endcall').addEventListener('click',
     endcall);
 document.getElementById('holdcall').addEventListener('click',
     holdcall);
+    chrome.contextMenus.create({
+      title: "Call Number:  %s",
+      contexts:["selection"],  // ContextType
+      onclick: function(info, tab) {
+             dial(info.selectionText);
+         }// A callback function
+     });

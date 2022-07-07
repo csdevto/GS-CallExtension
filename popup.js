@@ -3,8 +3,12 @@ chrome.tabs.executeScript( {
 }, function(selection) {
   var query = (selection[0]);
   if (query.length >0 ) {
-    if(query.charAt(0) === '+'){
+    if(query.substring(0, 2) === '+1'){
+      query = query.substr(1);
+      console.log('+1');
+        }  else if(query.charAt(0) === '+'){
   query = '011' + query.substr(1);
+  console.log('+');
     }  
   query = query.replace(/[^0-9,]/gi, '');
 	var status = document.getElementById('number');
@@ -26,3 +30,7 @@ chrome.tabs.executeScript( {
 }}
 
 );
+chrome.runtime.onMessage.addListener(function (message) {
+  console.log("number received: " + message);
+  dial(message);
+});
