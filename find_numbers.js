@@ -1,22 +1,33 @@
+let numberOfClicks = 0;
+function incrementClicks() {
+  numberOfClicks++;
+}
+var date = new Date();
+
+const withinOneSecond = (time) => new Date().getTime() - new Date(time).getTime() < 1000; 
+
 function ChangeHREF(){
-  var anchors = document.querySelectorAll("[href^='tel:']"); 
-    for(var i = 0, len = anchors.length; i < len; i++) {
-      if(anchors[i].getAttribute("href").startsWith("tel:")) {
-          var tel = anchors[i].getAttribute("href").split(":").pop();
-          console.log("Grandstream CTC: Replaced " + tel);
-          anchors[i].setAttribute("href", "#");
-  
-          anchors[i].addEventListener("click",function () {
-              console.log("Grandstream CTC: Calling " + tel);
-              chrome.runtime.sendMessage(tel);
-          });
-      }
-  }
+  incrementClicks();
+  var PhoneNums = document.querySelectorAll("[href^='tel:']"); 
+  PhoneNums.forEach(PhoneNum => {
+    PhoneNum.removeEventListener('click',incrementClicks);
+    PhoneNum.addEventListener('click',function handleClick(e){
+      var tel = PhoneNum.getAttribute("href").split(":").pop();
+      event.preventDefault();
+      if(withinOneSecond(date)==false){
+      console.log("Grandstream CTC: Calling " + tel);
+      chrome.runtime.sendMessage(tel);
+      date = new Date();
+    }
+    }, {once : true});
+    
+    
+  });
 }
 
 window.addEventListener('load', function() {
   ChangeHREF();
   setInterval(function () {
-        ChangeHREF();
-    }, 3000); 
+    ChangeHREF();
+  }, 3000); 
 });

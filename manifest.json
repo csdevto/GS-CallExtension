@@ -1,13 +1,13 @@
 {
     "manifest_version": 2,
-
+    
     "name": "Grandstream Calling",
     "description": "use http protocol to generate calls from browser",
-    "version": "1.0.11",
+    "version": "1.0.12",
     "options_ui": {
-    "page": "options.html",
-    "chrome_style": true
-   },
+        "page": "options.html",
+        "chrome_style": true
+    },
     "icons": {
         "16": "favicon.png",
         "48": "favicon.png",
@@ -15,15 +15,16 @@
     },
     "content_scripts": [
         {
-          "matches": ["<all_urls>"],
-          "all_frames": true,
-          "js": ["find_numbers.js"],
-          "run_at": "document_end"
+            "matches": ["<all_urls>"],
+            "all_frames": true,
+            "js": ["find_numbers.js"],
+            "run_at": "document_end"
         }
-      ],
+    ],
     "permissions": [
         "http://*/",
-    "storage",
+        "notifications",
+        "storage",
         "activeTab",
         "storage",
         "contextMenus"
