@@ -2,10 +2,13 @@ var hcall = 0;
 var popup = 0;
 var options = 0;
 var NumStatus = '';
+
+//checks if chrome popup was open by checking for id GSPGhonepopup
 if(document.querySelectorAll('#GSPhonePopup').length > 0){
   popup = 1;
   NumStatus = document.getElementById('number');
 }
+//checks if option tab is active
 if(document.querySelectorAll('#GSOptions').length > 0){
   options = 1;
 }
@@ -45,22 +48,26 @@ function GSPhone(){
         console.log('+');
       }  
       query = query.replace(/[^0-9,]/gi, '');
-      if(popup == 1){
-        NumStatus.className = 'alert alert-success';
-        NumStatus.textContent ='Number Called: ' + query;
+      if (query.length > 0) {
+        if(popup == 1){
+          NumStatus.className = 'alert alert-success';
+          NumStatus.textContent ='Number Called: ' + query;
+        }
+        var opt = {
+          type: "basic",
+          title: "Dialing Number",
+          message: query,
+          iconUrl: "favicon.png",
+          requireInteraction: true,
+          silent: true,
+          priority: 0,
+          buttons: [{title:"Dismiss"}, {title:"End Call"}]
+        };
+        chrome.notifications.create("", opt);
+        document.querySelector('iframe').src = 
+        'http://'+self.IP+'/cgi-bin/api-make_call?username=' + self.Username + '&password=' + self.Password + '&phonenumber='+ number + '&account=0';
       }
-      var opt = {
-        type: "basic",
-        title: "Dialing Number",
-        message: query,
-        iconUrl: "favicon.png",
-        silent: true,
-        priority: 2,
-        buttons: [{title:"Dismiss"}, {title:"End Call"}]
-      };
-      chrome.notifications.create("", opt);
-      document.querySelector('iframe').src = 
-      'http://'+self.IP+'/cgi-bin/api-make_call?username=' + self.Username + '&password=' + self.Password + '&phonenumber='+ number + '&account=0';
+      
     } 
   }
   this.End =function(){
@@ -173,6 +180,10 @@ chrome.notifications.onButtonClicked.addListener(function(notificationId, button
 
 
 if(popup == 1){
+  document.getElementById('DialNum').addEventListener('click',function(){
+    var Num = document.getElementById('NumDial').value;
+    Call.Dial(Num);
+  });
   document.getElementById('CallForward').addEventListener('click',Call.Forwarder);
   document.getElementById('endcall').addEventListener('click',Call.End);
   document.getElementById('holdcall').addEventListener('click',Call.Hold);

@@ -12,7 +12,7 @@
 </html>
 <style>
   body{
-    width: 300px;
+    width: 400px;
   }
   iframe {
     height: 30px;
@@ -21,14 +21,24 @@
   }
   div#number{
     text-align: center;
-    padding: 0;
     margin-bottom: 0;
     border: 0;
     border-radius: 0;
   }
+  div.container{
+    padding: 15px;
+  }
 </style>
 </head>
 <body id="GSPhonePopup">
+  <div class="container">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" id="NumDial" placeholder="Enter Phone Number" aria-label="Enter Phone Number">
+      <div class="input-group-append">
+        <button class="btn btn-outline-primary" type="button" id="DialNum">Dial</button>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Dialer</a>
@@ -40,14 +50,18 @@
       <a class="nav-link" id="CallForward" href="" role="tab" aria-controls="Settings" aria-selected="false">Call Forward</a>
     </li>
   </ul>
+</div>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
       <div id="number"></div>
       <iframe frameborder="0" scrolling="no"></iframe>
-      <button id="endcall" type="button" class="btn btn-danger">End Call</button>
-      <button id="holdcall" type="button" class="btn btn-warning">Hold Call</button>
+      <div class="d-flex justify-content-center"><button id="endcall" type="button" class="btn btn-outline-danger">End Call</button>
+        <div style="width: 10px;"></div>
+        <button id="holdcall" type="button" class="btn btn-outline-warning">Hold Call</button></div>
+      
     </div>
     <div class="tab-pane fade" id="GSOptions" role="tabpanel" aria-labelledby="Settings-tab">
+      
       <div class="input-group">
         <span class="input-group-addon" id="basic-addon1">IP Address</span>
         <input type="text" class="form-control" name="IP" id="IP" placeholder="IP Address" value="" >
@@ -64,11 +78,15 @@
         <span class="input-group-addon" id="basic-addon1">Forward Phone #</span>
         <input type="text" class="form-control" name="PHONE" id="PHONE" placeholder="Forward Phone #" value="" >
       </div>
-      <div id="status"></div>
-      <button id="save" type="button" class="btn btn-primary">Save IP Address</button>
-      
+      <div class="d-flex justify-content-center">
+      <div id="status"></div></div>
+      <div class="d-flex justify-content-center">
+      <button id="save" type="button" class="btn btn-outline-primary">Save IP Address</button>
+    </div>
     </div>
   </div>	
+</div>
+<footer>Issues? contact <a href="mailto:dev@sierra.zone">dev@sierra.zone</a></footer>
 </body>
 </html>
 <script src="background.js"></script>
