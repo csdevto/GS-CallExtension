@@ -3,22 +3,29 @@
 <head>
   <title>IP Settings</title>
 </head>
-<link rel="stylesheet" href="bs.css">
-<body>
-	  	<div class="input-group">
-  		  <span class="input-group-addon" id="basic-addon1">IP Address</span>
-  		  <input type="text" class="form-control" name="IP" id="IP" placeholder="IP Address" value="" >
-		  </div>
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">User</span>
-        <input type="text" class="form-control" name="USER" id="USER" placeholder="User" value="" >
-      </div>
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">Password</span>
-        <input type="text" class="form-control" name="PASSWORD" id="PASSWORD" placeholder="Password" value="" >
-      </div>
-		  <div id="status"></div>
-		  <button id="save" type="button" class="btn btn-primary">Save IP Address</button>
-		  <script src="options.js"></script>
+<link rel="stylesheet" href="bootstrap/bootstrap.css">
+<script src="bootstrap/jquery-3.3.1.slim.min.js"></script>
+<script src="bootstrap/popper.min.js"></script>
+<script src="bootstrap/bootstrap.min.js"></script>
+<body id="GSOptions">
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">IP Address</span>
+    <input type="text" class="form-control" name="IP" id="IP" placeholder="IP Address" value="" >
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">User</span>
+    <input type="text" class="form-control" name="USER" id="USER" placeholder="User" value="" >
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">Password</span>
+    <input type="text" class="form-control" name="PASSWORD" id="PASSWORD" placeholder="Password" value="" >
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">Forward Phone #</span>
+    <input type="text" class="form-control" name="PHONE" id="PHONE" placeholder="Forward Phone #" value="" >
+  </div>
+  <div id="status"></div>
+  <button id="save" type="button" class="btn btn-primary">Save IP Address</button>
+  <script src="background.js"></script>
 </body>
 </html>

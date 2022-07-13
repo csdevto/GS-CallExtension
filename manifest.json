@@ -5,8 +5,7 @@
     "description": "use http protocol to generate calls from browser",
     "version": "1.0.12",
     "options_ui": {
-        "page": "options.html",
-        "chrome_style": true
+        "page": "options.html"
     },
     "icons": {
         "16": "favicon.png",
@@ -34,7 +33,6 @@
         "default_popup": "popup.html"
     },
     "background":{
-        "scripts":["background.js"],
-        "persistent": false
+        "scripts":["background.js"]
     }
 }
