@@ -20,12 +20,14 @@ function GSPhone(){
   this.Password = 'user';
   this.ForwardNum = '';
   this.ForwardAct = '';
+  this.PopupNotifications = '';
   chrome.storage.sync.get({
     IPV: '',
     USERV: '',
     PASSWORDV: '',
     PHONEV: '',
     FAACTIVATED: '',
+    POPNOTIF: '',
     
   }, function(items) {
     self.IP = items.IPV;
@@ -33,26 +35,28 @@ function GSPhone(){
     self.Password = items.PASSWORDV;
     self.ForwardAct = items.FAACTIVATED;
     self.ForwardNum = items.PHONEV;
+    self.PopupNotifications = items.POPNOTIF;
+    
   });
   
   this.Dial = function(number){
-    console.log('dial using func func');
     var query = (number);
-    console.log(query);
     if (query.length >0 ) {
       if(query.substring(0, 2) === '+1'){
         query = query.substr(1);
-        console.log('+1');
+        //console.log('+1');
       }  else if(query.charAt(0) === '+'){
         query = '011' + query.substr(1);
-        console.log('+');
+        //console.log('+');
       }  
       query = query.replace(/[^0-9,]/gi, '');
+      query = query.replace('.', '');
       if (query.length > 0) {
         if(popup == 1){
           NumStatus.className = 'alert alert-success';
           NumStatus.textContent ='Number Called: ' + query;
         }
+        if(self.PopupNotifications != true){
         var opt = {
           type: "basic",
           title: "Dialing Number",
@@ -64,8 +68,9 @@ function GSPhone(){
           buttons: [{title:"Dismiss"}, {title:"End Call"}]
         };
         chrome.notifications.create("", opt);
+      }
         document.querySelector('iframe').src = 
-        'http://'+self.IP+'/cgi-bin/api-make_call?username=' + self.Username + '&password=' + self.Password + '&phonenumber='+ number + '&account=0';
+        'http://'+self.IP+'/cgi-bin/api-make_call?username=' + self.Username + '&password=' + self.Password + '&phonenumber='+ query + '&account=0';
       }
       
     } 
@@ -120,11 +125,13 @@ function GSPhone(){
       USERV: '',
       PASSWORDV: '',
       PHONEV: '',
+      POPNOTIF: '',
     }, function(items) {
       document.getElementById('IP').value = items.IPV;
       document.getElementById('USER').value = items.USERV;
       document.getElementById('PASSWORD').value = items.PASSWORDV;
       document.getElementById('PHONE').value = items.PHONEV;
+      document.getElementById("PopupNotifications").checked = items.POPNOTIF;
     });
   }
   this.save_options = function(){
@@ -132,12 +139,14 @@ function GSPhone(){
     var USERt = document.getElementById('USER').value;
     var PASSWORDt = document.getElementById('PASSWORD').value;
     var PHONEt = document.getElementById('PHONE').value;
+    var POPNotf = document.getElementById("PopupNotifications").checked;
     chrome.storage.sync.set({
       IPV: IPt,
       PASSWORDV: PASSWORDt,
       USERV: USERt,
       PHONEV: PHONEt,
-      FAACTIVATED: '0'
+      FAACTIVATED: '0',
+      POPNOTIF: POPNotf
     }, function() {
       // Update NumStatus to let user know options were saved.
       var Status = document.getElementById('status');
@@ -159,7 +168,7 @@ if(popup == 0){
   document.body.appendChild(iframe);
 }
 chrome.runtime.onMessage.addListener(function (message) {
-  console.log("number received: " + message);
+  //console.log("number received: " + message);
   Call.Dial(message);
 });
 chrome.contextMenus.create({
