@@ -18,7 +18,7 @@ function ChangeHREF(){
       var tel = PhoneNum.getAttribute("href").split(":").pop();
       event.preventDefault();
       if(withinOneSecond(date)==false){
-      console.log("Sent to call: " + tel);
+      //console.log("Sent to call: " + tel);
       chrome.runtime.sendMessage(tel);
       date = new Date();
     }
